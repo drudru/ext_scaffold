@@ -17,7 +17,14 @@ module ExtScaffoldCoreExtensions
       end
       element_count = options.delete(:count) || self.length
 
-      { :results => element_count, element_class.to_s.underscore.pluralize => self }.to_json(options)
+      # Only apply the ActiveRecord JSON options
+      if (options[:ar_options])
+        r2 = self.map { | i | i.to_json(options[:ar_options]) }
+        r = "{ \"results\" : #{element_count}, \"#{element_class.to_s.underscore.pluralize}\" : [#{r2.join(", ")}] }" 
+      else
+        r = { :results => element_count, element_class.to_s.underscore.pluralize => self }.to_json(options)
+      end
+      return r
     end
 
   end
