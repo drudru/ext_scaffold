@@ -213,8 +213,8 @@ module ExtScaffoldCoreExtensions
         def attribute_mappings_for(object_name, options = {})
           object_class = object_name.to_s.classify.constantize
           requested_attributes = object_class.column_names.reject {|c| options[:skip_id] && c == object_class.primary_key}
-          if object_class.respond_to? 'ext_additional_attributes' 
-            requested_attributes = requested_attributes + object_class.ext_additional_attributes
+          if object_class.respond_to? 'ext_scaffold_attrs' 
+            requested_attributes = requested_attributes + object_class.ext_scaffold_attrs
           end
           requested_attributes.collect {|c| "{name: '#{object_name}[#{c}]', mapping: '#{c}'}" }.join(',')
         end

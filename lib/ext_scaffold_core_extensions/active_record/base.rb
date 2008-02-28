@@ -40,3 +40,25 @@ module ExtScaffoldCoreExtensions
     end
   end
 end
+
+
+class ActiveRecord::Base
+  class << self
+
+      @@ext_scaffold_attrs = []
+
+      # Annotate an ActiveRecord model with additional attributes (which could be methods) so the 
+      # to_ext_json method provides these in a JSON response. This is useful if you have fields
+      # that are calculated and need to be displayed in a datagrid
+      #
+      def ext_scaffold_additional_attributes(*attr_names)
+        @@ext_scaffold_attrs = attr_names
+      end
+
+      def ext_scaffold_attrs
+        return @@ext_scaffold_attrs
+      end
+
+  end
+end
+
