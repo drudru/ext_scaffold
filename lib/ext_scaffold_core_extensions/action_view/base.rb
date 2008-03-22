@@ -192,7 +192,8 @@ module ExtScaffoldCoreExtensions
         js << "  allowBlank: #{options[:allow_blank] == false ? 'false' : 'true'}," unless options[:allow_blank].nil?
         js << "  vtype: '#{options[:vtype]}'," if options[:vtype]
         js << "  xtype: '#{options[:xtype]}'," if options[:xtype]
-        js << "  format: 'Y/m/d'," if options[:xtype] == 'datefield'
+        js << "  format: 'm/d/Y'," if options[:xtype] == 'datefield'
+        js << "  altFormats: 'Y/m/d|m/d/y|m-d-y|m-d-Y|m/d|m-d|md|mdy|mdY|d|Y-m-d'," if options[:xtype] == 'datefield'
         js << "  dateFormat: 'Y/m/d', timeFormat: 'H:i:s'," if options[:xtype] == 'xdatetime'
         js << "  inputValue: '1', width: 18, height: 21," if options[:xtype] == 'checkbox'
         js << "  name: '#{options[:name]}'"
